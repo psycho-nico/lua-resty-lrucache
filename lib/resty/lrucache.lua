@@ -6,7 +6,13 @@ local ffi_new = ffi.new
 local ffi_sizeof = ffi.sizeof
 local ffi_cast = ffi.cast
 local ffi_fill = ffi.fill
-local ngx_now = ngx.now
+local ngx_now, socket
+if ngx ~= nil then
+    ngx_now = ngx.now
+else
+    socket = require "socket"
+    ngx_now = socket.gettime
+end
 local uintptr_t = ffi.typeof("uintptr_t")
 local setmetatable = setmetatable
 local tonumber = tonumber
